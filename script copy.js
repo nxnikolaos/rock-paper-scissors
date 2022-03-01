@@ -39,34 +39,28 @@ const parent = document.querySelector('.parent');
 const div = document.createElement('div');
 div.classList.add('container');
 parent.appendChild(div);
+
+const buttonR = document.createElement('button');
+buttonR.textContent = 'Rock';
+const buttonP = document.createElement('button');
+buttonP.textContent = 'Paper';
+const buttonS = document.createElement('button');
+buttonS.textContent = 'Scissors';
+
 const p=document.createElement('p');
+buttonR.addEventListener('click',function(){
+    p.textContent=playRound(buttonR.textContent,aiSelection);
+});
+buttonP.addEventListener('click',function(){
+    p.textContent=playRound(buttonP.textContent,aiSelection)
+});
+buttonS.addEventListener('click',function(){
+    p.textContent=playRound(buttonS.textContent,aiSelection)
+});
 
-const rps = [];
-for(let i=0;i<3;i++){
-    rps[i]=document.createElement('button');
-}
-rps[0].textContent='Rock';
-rps[1].textContent='Paper';
-rps[2].textContent='Scissors';
-
-const buttons = Array.from(document.getElementsByTagName('button'));
-
-for(let j=0;j<rps.length;j++){
-    rps[j].addEventListener('click',function(){
-        let pcount=0;
-        let aicount =0;
-        p.textContent=playRound(rps[j].textContent,aiSelection);
-        if((p.textContent.toLocaleLowerCase()).substr(0,7)==='you win'){
-            pcount+=1;
-        }else if((p.textContent.toLocaleLowerCase()).substr(0,8)==='you lose'){
-            aicount+=1;
-        }
-    });
-}
-
-for(i=0;i<rps.length;i++){
-    div.appendChild(rps[i]);
-}
+div.appendChild(buttonR);
+div.appendChild(buttonP);
+div.appendChild(buttonS);
 div.appendChild(p);
 
 
