@@ -35,11 +35,15 @@ function playRound(playerSelection,computerSelection){
     }
     return winner
 }
+
 const parent = document.querySelector('.parent');
 const div = document.createElement('div');
 div.classList.add('container');
 parent.appendChild(div);
+
 const p=document.createElement('p');
+const pp=document.createElement('p');
+const pa=document.createElement('p');
 
 const rps = [];
 for(let i=0;i<3;i++){
@@ -50,17 +54,33 @@ rps[1].textContent='Paper';
 rps[2].textContent='Scissors';
 
 const buttons = Array.from(document.getElementsByTagName('button'));
+let pcount=0;
+let aicount =0;
+pp.textContent=`Player : ${pcount}`;
+pa.textContent=`Computer : ${aicount}`;
+div.appendChild(pp);
+div.appendChild(pa);
 
 for(let j=0;j<rps.length;j++){
     rps[j].addEventListener('click',function(){
-        let pcount=0;
-        let aicount =0;
         p.textContent=playRound(rps[j].textContent,aiSelection);
-        if((p.textContent.toLocaleLowerCase()).substr(0,7)==='you win'){
+        if(p.textContent.toLowerCase().substring(0,7)==='you win'){
             pcount+=1;
-        }else if((p.textContent.toLocaleLowerCase()).substr(0,8)==='you lose'){
+            if(pcount===5){
+                p.textContent=`YOU WIN! Congratulations!`;
+                pcount=0;
+                aicount=0;
+            }
+        }else if(p.textContent.toLowerCase().substring(0,8)==='you lose'){
             aicount+=1;
+            if(aicount===5){
+                p.textContent=`YOU LOSE! Please don't try again, that sucked.`;
+                pcount=0;
+                aicount=0;
+            }            
         }
+        pp.textContent=`Player : ${pcount}`;
+        pa.textContent=`Computer : ${aicount}`;
     });
 }
 
@@ -68,47 +88,3 @@ for(i=0;i<rps.length;i++){
     div.appendChild(rps[i]);
 }
 div.appendChild(p);
-
-
-
-
-/*
-const playerSelection = prompt('Rock, paper or scissors?');
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection,computerSelection));
-*/
-
-
-/*----------------------------BEST OF 5------------------------------
-console.log('The game functions starts here.');
-console.log('Get ready for a best of 5!');
-
-
-
-function game(computerSelection){
-    let pcount=0;
-    let aicount =0;
-   for(let i =0; i< 5; i++){ 
-        let playerSelection = prompt("Rock, paper or scissors?");
-
-        playerSelection.toLocaleLowerCase();
-        computerSelection.toLocaleLowerCase();
-        console.log(playRound(playerSelection,computerSelection));
-        
-        if((playRound(playerSelection,computerSelection).toLocaleLowerCase()).substr(0,7)==='you win'){
-            pcount+=1;
-        }else if((playRound(playerSelection,computerSelection).toLocaleLowerCase()).substr(0,8)==='you lose'){
-            aicount+=1;
-        }
-   }
-   if(pcount>aicount){
-       console.log(`Congratulations! You win the best of 5! ${pcount} to ${aicount}.`);
-   }else if(pcount<aicount){
-       console.log(`You lost! Get rekt boiiiii! ${pcount} to ${aicount}.`);
-   }else{
-       console.log(`It's a draw! ${pcount} to ${aicount}!`);
-   }
-}
-
-game(computerSelection);
-*/
